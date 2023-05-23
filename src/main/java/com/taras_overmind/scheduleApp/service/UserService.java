@@ -1,14 +1,12 @@
 package com.taras_overmind.scheduleApp.service;
 
 
-import com.taras_overmind.scheduleApp.model.User;
-import com.taras_overmind.scheduleApp.model.UserRole;
+import com.taras_overmind.scheduleApp.model.entity.User;
+import com.taras_overmind.scheduleApp.model.enums.UserRole;
 import com.taras_overmind.scheduleApp.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 public class UserService {

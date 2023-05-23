@@ -1,6 +1,8 @@
-package com.taras_overmind.scheduleApp.model;
+package com.taras_overmind.scheduleApp.model.entity;
 
 import javax.persistence.*;
+
+import com.taras_overmind.scheduleApp.model.enums.UserRole;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

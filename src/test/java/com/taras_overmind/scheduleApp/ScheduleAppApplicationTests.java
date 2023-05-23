@@ -1,8 +1,7 @@
 package com.taras_overmind.scheduleApp;
 
-import com.taras_overmind.scheduleApp.model.User;
-import com.taras_overmind.scheduleApp.model.UserRole;
-import com.taras_overmind.scheduleApp.repository.UserRepo;
+import com.taras_overmind.scheduleApp.model.entity.User;
+import com.taras_overmind.scheduleApp.model.enums.UserRole;
 import com.taras_overmind.scheduleApp.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
