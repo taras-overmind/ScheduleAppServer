@@ -33,6 +33,10 @@ public class User {
     @NotEmpty
     private String email;
 
+    @NotNull
+    @NotEmpty
+    private boolean enabled;
+
     public User(@NotNull @NotEmpty String username,
                 @NotNull @NotEmpty String password,
                 @NotNull @NotEmpty UserRole role,

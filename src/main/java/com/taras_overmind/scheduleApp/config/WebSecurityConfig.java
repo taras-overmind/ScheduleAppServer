@@ -7,9 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -31,38 +28,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-//                .antMatchers("/registration").permitAll()
-//                .antMatchers("/station/create").hasRole("ADMIN")
-//                .antMatchers("/station/edit").hasRole("ADMIN")
-//                .antMatchers("/train/create").hasRole("ADMIN")
-//                .antMatchers("/train/edit").hasRole("ADMIN")
-//                .antMatchers("/route/create").hasRole("ADMIN")
-//                .antMatchers("/route/edit").hasRole("ADMIN")
-//                .antMatchers("/carriage/create").hasRole("ADMIN")
-//                .antMatchers("/carriage/edit").hasRole("ADMIN")
-//                .antMatchers("/trip/create").hasRole("ADMIN")
-                //.antMatchers("/smthing").hasRole("ADMIN")
-                .antMatchers("/**").permitAll()
-//                .antMatchers("/smthing").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic().and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
+        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN") // Restrict access to "/admin" endpoints to users with the "ADMIN" role
+//                .anyRequest().authenticated() // Require authentication for all other endpoints
 //                .and()
-//                .logout()
-//                .permitAll()
-//                .and()
-                .csrf().disable()
-                .exceptionHandling().accessDeniedPage("/access/denied");
+                .formLogin()
+                .and()
+                .logout();
     }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService(){
-        return new InMemoryUserDetailsManager(User.withUsername("taras_overmind").password("123wwe").roles("ADMIN").build());
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService(){
+//        return new InMemoryUserDetailsManager(User.withUsername("taras_overmind").password("123wwe").roles("ADMIN").build());
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(encoder())
-                .usersByUsernameQuery("select username, password from user where username = ?")
-                .authoritiesByUsernameQuery("select username, role from user where username=?");
+                .usersByUsernameQuery("SELECT username, password, enabled FROM user WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, role FROM user WHERE username=?");
     }
 }
