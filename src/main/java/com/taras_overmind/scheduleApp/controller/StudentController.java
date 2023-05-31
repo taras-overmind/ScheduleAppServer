@@ -1,5 +1,7 @@
 package com.taras_overmind.scheduleApp.controller;
 
+import com.taras_overmind.scheduleApp.model.dto.StudentAppointmentDTO;
+import com.taras_overmind.scheduleApp.model.service.StudentAppointmentService;
 import com.taras_overmind.scheduleApp.repository.CustomQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +13,25 @@ import java.util.List;
 public class StudentController {
     @Autowired
     CustomQueries customQueries;
+    @Autowired
+    StudentAppointmentService service;
     @GetMapping("/smthing")
     public String getString(){
         return "abcdefghijklmnopqrstuvwxyz";
     }
-    @GetMapping("/subjects")
-    public List<List<String>> getSubjects(Long group_id, int weekDay){
-        return customQueries.getAppointmentsByGroupAndWeekDay(group_id, weekDay);
+    @GetMapping("/student")
+    public List<StudentAppointmentDTO> getSubjects(String group_name, int weekDay){
+        return service.getStudentAppointment(group_name, weekDay);
+    }
+
+    @GetMapping("/faculties")
+    public List<String> getFaculties(){
+        return customQueries.getFaculties();
+    }
+
+    @GetMapping("/groups")
+    public List<String> getGroups(String faculty_name){
+        return customQueries.getGroups(faculty_name);
     }
 
 }

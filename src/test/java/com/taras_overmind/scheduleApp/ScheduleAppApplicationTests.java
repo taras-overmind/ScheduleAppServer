@@ -24,7 +24,7 @@ class ScheduleAppApplicationTests {
 
 	@Test
 	void test2(){
-		System.out.println(customQueries.getAppointmentsByGroupAndWeekDay(1L, WeekDay.MONDAY.ordinal()));
-		System.out.println(customQueries.getAppointmentsByLecturerAndWeekDay(1L, WeekDay.MONDAY.ordinal()));
+//		System.out.println(customQueries.getAppointmentsByGroupAndWeekDay(1L, WeekDay.MONDAY.ordinal()));
+		System.out.println(customQueries.getAppointmentsByLecturerAndWeekDay("karashchuk.mykola@knu.ua", WeekDay.MONDAY.ordinal()));
 	}
 }
